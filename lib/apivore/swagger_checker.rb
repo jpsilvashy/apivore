@@ -23,8 +23,10 @@ module Apivore
     end
 
     def has_matching_document_for(path, method, code, body)
+      schema = file_swagger_path? ? @swagger_path : swagger
+
       JSON::Validator.fully_validate(
-        swagger, body, fragment: fragment(path, method, code)
+        schema, body, fragment: fragment(path, method, code)
       )
     end
 
@@ -71,6 +73,8 @@ module Apivore
     end
 
     def fetch_swagger!
+      return JSON.parse File.read('swagger/v1/swagger.json') if file_swagger_path?
+
       session = ActionDispatch::Integration::Session.new(Rails.application)
       begin
         session.get(swagger_path)
@@ -100,5 +104,11 @@ module Apivore
 
       @untested_mappings = JSON.parse(JSON.generate(@mappings))
     end
+
+    def file_swagger_path?
+      uri  = JSON::Util::URI.parse(@swagger_path)
+      uri.scheme == 'file'
+    end
+
   end
 end
