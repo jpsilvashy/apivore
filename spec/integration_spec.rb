@@ -4,7 +4,7 @@ context "Apivore tests running against a mock API" do
   describe "the test checks unimplemented path" do
     it 'should show an alert that the specific path is unimplemented' do
       stdout = `rspec spec/data/example_specs.rb --example 'unimplemented path'`
-      expect(stdout).to match(/1 failure/)
+      expect(stdout).to match(/2 failures/)
       expect(stdout).to match(/Path \/not_implemented.json did not respond with expected status code. Expected 200 got 404/)
     end
   end
@@ -12,7 +12,7 @@ context "Apivore tests running against a mock API" do
   describe "a path exists but the API response contains a property of a different type" do
     it 'should show which path and field has the problem' do
       stdout = `rspec spec/data/example_specs.rb --example 'mismatched property type'`
-      expect(stdout).to match(/1 failure/)
+      expect(stdout).to match(/2 failures/)
       expect(stdout).to include("'/api/services/1.json#/name' of type String did not match one or more of the following types: integer, null")
     end
   end
@@ -20,7 +20,7 @@ context "Apivore tests running against a mock API" do
   describe "a path exists but the API responds with an unexpected http response code" do
     it 'should show which path has the problem and what the expected and actual response codes are' do
       stdout = `rspec spec/data/example_specs.rb --example 'unexpected http response'`
-      expect(stdout).to match(/1 failure/)
+      expect(stdout).to match(/2 failures/)
       expect(stdout).to match(/Expected 222 got 200/)
     end
   end
@@ -29,7 +29,7 @@ context "Apivore tests running against a mock API" do
     it 'should fail on undocumented properties for both index and view' do
       # This swagger doc does not document one of the properties returned by the mock API
       stdout = `rspec spec/data/example_specs.rb --example 'extra properties'`
-      expect(stdout).to match(/2 failures/)
+      expect(stdout).to match(/4 failures/)
       msg = 'contains additional properties \["name"\] outside of the schema when none are allowed'
       expect(stdout).to match("'/api/services.json#/0' #{msg}") # Index
       expect(stdout).to match("'/api/services/1.json#/' #{msg}") # View
@@ -39,7 +39,7 @@ context "Apivore tests running against a mock API" do
   describe "a response missing a required property" do
     it 'should fail on the missing property for both index and view' do
       stdout = `rspec spec/data/example_specs.rb --example 'missing required'`
-      expect(stdout).to match(/2 failures/)
+      expect(stdout).to match(/4 failures/)
       expect(stdout).to match("'/api/services.json#/0' did not contain a required property of 'test_required'") # Index
       expect(stdout).to match("'/api/services/1.json#/' did not contain a required property of 'test_required'")  # View
     end
@@ -55,7 +55,7 @@ context "Apivore tests running against a mock API" do
   describe "a swagger document not conforming to a custom schema" do
     it 'should fail the additional validation' do
       stdout = `rspec spec/data/example_specs.rb --example 'fails custom validation'`
-      expect(stdout).to match(/1 failure/)
+      expect(stdout).to match(/2 failures/)
       expect(stdout).to include("The property '#/definitions/service' did not contain a required property of 'type'")
     end
   end
