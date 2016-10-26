@@ -28,7 +28,7 @@ module Apivore
 
     def path_schema(fragment)
       schema_fragment = swagger
-      fragment[1..-1].each { |key| schema_fragment = schema_fragment[key] }
+      fragment[1..-1].each { |key| schema_fragment = schema_fragment[key] } if fragment
 
       schema_ref = schema_fragment["$ref"]
 
