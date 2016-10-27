@@ -3,6 +3,7 @@ require 'rspec'
 require 'apivore/rspec_matchers'
 require 'apivore/rspec_helpers'
 require 'apivore/swagger_checker'
+require 'apivore/swagger_file_checker'
 require 'apivore/swagger'
 
 RSpec.configure do |config|
@@ -14,3 +15,9 @@ end
 draft04 = JSON.parse(File.read(File.expand_path("../../data/draft04_schema.json", __FILE__)))
 draft04_schema = JSON::Schema.new(draft04, Addressable::URI.parse('http://json-schema.org/draft-04/schema#'))
 JSON::Validator.add_schema(draft04_schema)
+
+module Apivore
+  def self.root
+    File.expand_path '../..', __FILE__
+  end
+end
