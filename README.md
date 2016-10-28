@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/westfieldlabs/apivore.svg?branch=master)](https://travis-ci.org/westfieldlabs/apivore)
+[![Build Status](https://travis-ci.org/onfido/apivore.svg?branch=master)](https://travis-ci.org/onfido/apivore)
 
-[![Code Climate](https://codeclimate.com/github/westfieldlabs/apivore/badges/gpa.svg)](https://codeclimate.com/github/westfieldlabs/apivore)
 # Apivore
 
 Automatically tests your rails API against its OpenAPI (Swagger) description of end-points, models, and query parameters.
@@ -81,7 +80,7 @@ it 'additionally conforms to a custom schema' do
   expect(subject).to conform_to("<your custom schema>.json")
 end
 ```
-We have included an example [here] (data/custom_schemata/westfield_api_standards.json). The file path to this custom schema is stored in `Apivore::CustomSchemaValidator::WF_SCHEMA`, if you wish to use it. 
+We have included an example [here] (data/custom_schemata/westfield_api_standards.json). The file path to this custom schema is stored in `Apivore::CustomSchemaValidator::WF_SCHEMA`, if you wish to use it.
 
 Run the tests as part of your normal rspec test suite, e.g., `rake spec:requests`
 
