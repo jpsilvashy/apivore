@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.files       = ['lib/apivore.rb', 'data/swagger_2.0_schema.json', 'data/draft04_schema.json']
   s.files      += Dir['lib/apivore/*.rb']
   s.files      += Dir['data/custom_schemata/*.json']
-  s.homepage    = 'http://github.com/westfieldlabs/apivore'
+  s.homepage    = 'http://github.com/onfido/apivore'
   s.licenses    = ['Apache 2.0']
 
   s.add_runtime_dependency 'json-schema', '~> 2.5'
