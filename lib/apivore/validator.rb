@@ -11,12 +11,7 @@ module Apivore
       @method = method.to_s
       @path = path.to_s
       @params = params
-
-      if expected_response_code == 'default'
-        @expected_response_code = 200
-      else
-        @expected_response_code = expected_response_code.to_i
-      end
+      @expected_response_code = expected_response_code
     end
 
     def matches?(swagger_checker)
@@ -90,6 +85,8 @@ module Apivore
     end
 
     def check_status_code
+      return if expected_response_code == 'default'
+
       if response.status != expected_response_code
         errors << "Path #{path} did not respond with expected status code."\
           " Expected #{expected_response_code} got #{response.status}"\
