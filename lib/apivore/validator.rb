@@ -11,7 +11,7 @@ module Apivore
       @method = method.to_s
       @path = path.to_s
       @params = params
-      @expected_response_code = expected_response_code.to_i
+      @expected_response_code = expected_response_code
     end
 
     def matches?(swagger_checker)
